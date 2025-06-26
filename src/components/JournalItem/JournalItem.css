@@ -1,14 +1,3 @@
-.journal-item {
-	display: flex;
-	padding: 20px;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 10px;
-	align-self: stretch;
-	border-radius: 3px;
-	background: rgba(255, 255, 255, 0.03);
-}
-
 .journal-item__header {
 	color: #fff;
 	font-size: 18px;
