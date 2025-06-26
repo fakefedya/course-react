@@ -2,6 +2,7 @@ import './App.css'
 import Button from './components/Button/Button'
 import CardButton from './components/CardButton/CardButton'
 import Header from './components/Header/Header'
+import JournalAddButton from './components/JournalAddButton/JournalAddButton'
 import JournalItem from './components/JournalItem/JournalItem'
 import JournalList from './components/JournalList/JournalList'
 import Body from './layout/Body/Body'
@@ -25,8 +26,8 @@ function App() {
 		<div className='app'>
 			<LeftPanel>
 				<Header />
+				<JournalAddButton />
 				<JournalList>
-					<CardButton>Новое воспоминание</CardButton>
 					<CardButton>
 						<JournalItem
 							title={data[0].title}
