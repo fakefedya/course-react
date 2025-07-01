@@ -4,6 +4,43 @@
 	gap: 30px;
 }
 
+.input-title {
+	font-family: 'Source Sans 3', sans-serif;
+	background: none;
+	border: none;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	border-bottom: 1px solid #323232;
+	width: 100%;
+}
+
+.form-label {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	min-width: 150px;
+}
+
+.form-row {
+	display: flex;
+	align-items: center;
+	gap: 50px;
+}
+
+.input {
+	font-family: 'Source Sans 3', sans-serif;
+	border: none;
+	background: none;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	border-bottom: 1px solid #323232;
+	width: 100%;
+}
+
 .invalid {
 	border: 1px solid red;
 	background: rgb(82, 3, 3);
