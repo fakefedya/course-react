@@ -5,6 +5,7 @@
 	transition: border-color 0.25s;
 	font-size: 16px;
 	border: none;
+	transition: 0.3s background-color ease-in-out;
 }
 .accent:hover {
 	background-color: #646cff;
