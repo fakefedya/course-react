@@ -13,7 +13,7 @@ function JournalForm({ onSubmit }) {
 		if (!isValid.date || !isValid.post || !isValid.title) {
 			timerId = setTimeout(() => {
 				console.log('Очистка состояния!')
-				dispatchForm({ type: 'CLEAR_FORM' })
+				dispatchForm({ type: 'RESET_VALIDITY' })
 			}, 2000)
 		}
 
@@ -26,7 +26,7 @@ function JournalForm({ onSubmit }) {
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
 			onSubmit(values)
-			dispatchForm({ type: 'RESET_FORM' })
+			dispatchForm({ type: 'CLEAR_FORM' })
 		}
 	}, [isFormReadyToSubmit])
 
