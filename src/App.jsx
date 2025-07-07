@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/Header/Header'
 import JournalAddButton from './components/JournalAddButton/JournalAddButton'
@@ -8,28 +8,32 @@ import Body from './layout/Body/Body'
 import LeftPanel from './layout/LeftPanel/LeftPanel'
 
 function App() {
-	const INITIAL_DATA = [
-		{
-			id: 1,
-			title: 'Подготовка к обновлению курсов',
-			date: new Date(),
-			text: 'Горные походы открывают удивительные природные ландшафты',
-		},
-		{
-			id: 2,
-			title: 'Поход в годы',
-			date: new Date(),
-			text: 'Думал, что очень много времени займет придумать этот текст',
-		},
-	]
+	const [items, setItems] = useState([])
 
-	const [items, setItems] = useState(INITIAL_DATA)
+	useEffect(() => {
+		const data = JSON.parse(localStorage.getItem('data'))
+		if (data) {
+			setItems(
+				data.map((item) => ({
+					...item,
+					date: new Date(item.date),
+				}))
+			)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (items.length) {
+			console.log('Запись!')
+			localStorage.setItem('data', JSON.stringify(items))
+		}
+	}, [items])
 
 	const addItem = (item) => {
 		setItems((oldItems) => [
 			...oldItems,
 			{
-				text: item.text,
+				post: item.post,
 				title: item.title,
 				date: new Date(item.date),
 				id:

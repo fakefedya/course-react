@@ -20,7 +20,7 @@ function JournalList({ itemsList }) {
 			{' '}
 			{itemsList.sort(sortItems).map((el) => (
 				<CardButton key={el.id}>
-					<JournalItem title={el.title} date={el.date} text={el.text} />
+					<JournalItem title={el.title} date={el.date} post={el.post} />
 				</CardButton>
 			))}
 		</div>
