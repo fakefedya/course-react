@@ -37,5 +37,7 @@ export function formReducer(state, action) {
 				isFormReadyToSubmit: titleValidity && dateValidity && postValidity,
 			}
 		}
+		default:
+			return state
 	}
 }

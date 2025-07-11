@@ -1,9 +1,10 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useContext, useEffect, useReducer, useRef } from 'react'
 import Button from '../Button/Button'
 import styles from './JournalForm.module.css'
 import cn from 'classnames'
 import { INITIAL_STATE, formReducer } from './JournalForm.state'
 import Input from '../Input/Input'
+import { UserContext } from '../../context/user-context'
 
 function JournalForm({ onSubmit }) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE)
@@ -11,6 +12,7 @@ function JournalForm({ onSubmit }) {
 	const titleRef = useRef()
 	const dateRef = useRef()
 	const postRef = useRef()
+	const { userId } = useContext(UserContext)
 
 	// Устанавливаем фокус на невалидное поле
 	const focusError = (isValid) => {
@@ -50,6 +52,15 @@ function JournalForm({ onSubmit }) {
 		}
 	}, [isFormReadyToSubmit])
 
+	useEffect(() => {
+		dispatchForm({
+			type: 'SET_VALUE',
+			payload: {
+				userId,
+			},
+		})
+	}, [userId, isFormReadyToSubmit]) // Сомнительное решение тригерить добавление userId через useEffect(), но чтобы все работало, будем трекать изменение isFormReadyToSubmit
+
 	const onChange = (e) => {
 		dispatchForm({
 			type: 'SET_VALUE',
@@ -66,6 +77,7 @@ function JournalForm({ onSubmit }) {
 
 	return (
 		<form className={styles['journal-form']} onSubmit={addJournalItem}>
+			{userId}
 			<div>
 				<Input
 					type='text'

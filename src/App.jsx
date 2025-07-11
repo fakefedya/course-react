@@ -6,43 +6,45 @@ import JournalList from './components/JournalList/JournalList'
 import Body from './layout/Body/Body'
 import LeftPanel from './layout/LeftPanel/LeftPanel'
 import { useLocalStorage } from './hooks/use-localstorage.jook'
-
-function mapItems(items) {
-	if (!items) {
-		return []
-	}
-	return items.map((i) => ({
-		...i,
-		date: new Date(i.date),
-	}))
-}
+import { UserContextProvider } from './context/user-context'
 
 function App() {
 	const [items, setItems] = useLocalStorage(['data'])
+
+	function mapItems(items) {
+		if (!items) {
+			return []
+		}
+		return items.map((i) => ({
+			...i,
+			date: new Date(i.date),
+		}))
+	}
 
 	const addItem = (item) => {
 		setItems([
 			...mapItems(items),
 			{
-				post: item.post,
-				title: item.title,
-				date: new Date(item.date),
+				...item,
+				userId: item.userId,
 				id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
 			},
 		])
 	}
 
 	return (
-		<div className='app'>
-			<LeftPanel>
-				<Header />
-				<JournalAddButton />
-				<JournalList itemsList={mapItems(items)} />
-			</LeftPanel>
-			<Body>
-				<JournalForm onSubmit={addItem} />
-			</Body>
-		</div>
+		<UserContextProvider>
+			<div className='app'>
+				<LeftPanel>
+					<Header />
+					<JournalAddButton />
+					<JournalList itemsList={mapItems(items)} />
+				</LeftPanel>
+				<Body>
+					<JournalForm onSubmit={addItem} />
+				</Body>
+			</div>
+		</UserContextProvider>
 	)
 }
 

@@ -5,7 +5,9 @@ export function useLocalStorage(key) {
 
 	useEffect(() => {
 		const res = JSON.parse(localStorage.getItem(key))
-		if (res) {
+		if (!res) {
+			localStorage.setItem(key, '[]') // Временный фикс, если отсутствует запись в LS
+		} else if (res) {
 			setData(res)
 		}
 	}, [])
