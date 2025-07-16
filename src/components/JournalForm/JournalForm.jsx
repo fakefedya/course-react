@@ -6,7 +6,7 @@ import { INITIAL_STATE, formReducer } from './JournalForm.state'
 import Input from '../Input/Input'
 import { UserContext } from '../../context/user-context'
 
-function JournalForm({ onSubmit }) {
+function JournalForm({ onSubmit, data }) {
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE)
 	const { isValid, isFormReadyToSubmit, values } = formState
 	const titleRef = useRef()
@@ -30,16 +30,17 @@ function JournalForm({ onSubmit }) {
 	}
 
 	useEffect(() => {
+		dispatchForm({ type: 'SET_VALUE', payload: { ...data } })
+	}, [data])
+
+	useEffect(() => {
 		let timerId
 		if (!isValid.date || !isValid.post || !isValid.title) {
 			focusError(isValid)
 			timerId = setTimeout(() => {
-				console.log('Очистка состояния!')
 				dispatchForm({ type: 'RESET_VALIDITY' })
 			}, 2000)
 		}
-
-		// Для предотвращения накопления и конфликта таймеров/интервалов вводится механизм очистки
 		return () => {
 			clearTimeout(timerId)
 		}
@@ -48,25 +49,19 @@ function JournalForm({ onSubmit }) {
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
 			onSubmit(values)
-			dispatchForm({ type: 'CLEAR_FORM' })
+			dispatchForm({ type: 'CLEAR' })
+			dispatchForm({ type: 'SET_VALUE', payload: { userId } })
 		}
-	}, [isFormReadyToSubmit])
+	}, [isFormReadyToSubmit, userId])
 
 	useEffect(() => {
-		dispatchForm({
-			type: 'SET_VALUE',
-			payload: {
-				userId,
-			},
-		})
-	}, [userId, isFormReadyToSubmit]) // Сомнительное решение тригерить добавление userId через useEffect(), но чтобы все работало, будем трекать изменение isFormReadyToSubmit
+		dispatchForm({ type: 'SET_VALUE', payload: { userId } })
+	}, [isFormReadyToSubmit, userId])
 
 	const onChange = (e) => {
 		dispatchForm({
 			type: 'SET_VALUE',
-			payload: {
-				[e.target.name]: e.target.value,
-			},
+			payload: { [e.target.name]: e.target.value },
 		})
 	}
 
@@ -99,7 +94,9 @@ function JournalForm({ onSubmit }) {
 					name='date'
 					id='date'
 					ref={dateRef}
-					value={values.date}
+					value={
+						values.date ? new Date(values.date).toISOString().slice(0, 10) : ''
+					}
 					onChange={onChange}
 					isValid={isValid.date}
 				/>
@@ -128,9 +125,7 @@ function JournalForm({ onSubmit }) {
 					[styles['invalid']]: !isValid.post,
 				})}
 			></textarea>
-			<Button className={'accent'} Сохранить>
-				Сохранить
-			</Button>
+			<Button className={'form-button'}>Сохранить</Button>
 		</form>
 	)
 }

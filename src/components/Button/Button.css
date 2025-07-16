@@ -7,10 +7,12 @@
 	border: none;
 	transition: 0.3s background-color ease-in-out;
 }
-.accent:hover {
+.form-button:hover {
 	background-color: #646cff;
 }
 
-.accent {
+.form-button {
+	padding: 15px 30px;
 	background-color: #312eb5;
+	width: fit-content;
 }
