@@ -128,7 +128,9 @@ function JournalForm({ onSubmit }) {
 					[styles['invalid']]: !isValid.post,
 				})}
 			></textarea>
-			<Button className={'accent'} text='Сохранить' />
+			<Button className={'accent'} Сохранить>
+				Сохранить
+			</Button>
 		</form>
 	)
 }

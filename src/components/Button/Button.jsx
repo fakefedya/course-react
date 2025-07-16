@@ -1,12 +1,13 @@
+import { memo } from 'react'
 import './Button.css'
 
-function Button({ text, className, onClick }) {
+function Button({ children, className, onClick }) {
 	const cl = 'button' + (className ? ' ' + className : '')
 	return (
 		<button className={cl} onClick={onClick}>
-			{text}
+			{children}
 		</button>
 	)
 }
 
-export default Button
+export default memo(Button)
