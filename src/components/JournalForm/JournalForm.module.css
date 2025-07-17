@@ -1,7 +1,6 @@
 .journal-form {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
 }
 
 .form-label {
@@ -15,6 +14,8 @@
 	display: flex;
 	align-items: center;
 	gap: 50px;
+	padding: 15px 0;
+	border-bottom: 1px solid #323232;
 }
 
 .input {
@@ -25,11 +26,28 @@
 	font-style: normal;
 	font-weight: 600;
 	line-height: normal;
-	border-bottom: 1px solid #323232;
 	width: 100%;
+}
+
+.input-post {
+	margin: 15px 0;
 }
 
 .invalid {
 	border: 1px solid red;
 	background: rgb(82, 3, 3);
+}
+
+.delete {
+	height: 30px;
+	width: 30px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	opacity: 0.8;
+	padding: 0;
+}
+
+.delete:hover {
+	opacity: 1;
 }
